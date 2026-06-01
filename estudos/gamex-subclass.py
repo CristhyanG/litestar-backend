@@ -1,5 +1,5 @@
-class Player:
-
+class Character:
+        
     def __init__(self, name: str, hp: int, inventory: list, damage: int):
         self.name = name
         self.hp = hp
@@ -22,7 +22,7 @@ class Player:
 
     def attack(self, target: "Player | Enemy") -> None:
         target.take_damage(self.damage) 
-      
+    
     def heal(self, amount) -> None:
         self.hp += amount    
 
@@ -30,38 +30,22 @@ class Player:
         self.inventory.append(item)
         for i in self.inventory:
             print(i)
-
-
-class Enemy:
-    def __init__(self, name: str, hp: int, damage: int):
+    def __init__(self, name: str, hp: int, inventory: list, damage: int):
         self.name = name
         self.hp = hp
+        self.inventory = inventory
         self.damage = damage
+        
+class Player(Character):
+    pass
 
-    def is_alive(self) -> bool:
-        return self.hp > 0
- 
-    def attack(self, target: "Player | Enemy") -> None:
-        target.take_damage(self.damage)
 
-    def show_hp(self) -> str:
-        return f"{self.name}'s HP: {self.hp}"
-    
-    def take_damage(self, amount) -> None:
-        self.hp -= amount 
-        print(self.show_hp(), "Alive" if self.is_alive() else "Dead")       
+
+class Enemy(Character):
+    pass
 
 
 
 #player = Player('Knight', 10, ['Espada', 'Escudo', 'poção'])
 player = Player("Knight", 100, [], 20)
-goblin = Enemy("Goblin", 30, 15)
-
-player.attack(goblin)
-goblin.attack(player)
-player.attack(goblin)
-
-#player.show_inventory()
-#player.take_damage(1)
-#player.heal(1)
-#player.add_item('flecha')
+goblin = Enemy("Goblin", 30,[], 15)
